@@ -24,7 +24,7 @@ from telethon.tl.types import (
 from userbot.utils import admin_cmd
 from userbot import ALIVE_NAME
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Set ALIVE_NAME In Heroku!"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Please Set ALIVE_NAME"
 FILLED_UP_DADDY = "Invalid pack selected."
 
 @borg.on(admin_cmd(pattern="kang ?(.*)"))
@@ -32,7 +32,7 @@ async def _(event):
     if event.fwd_from:
         return
     if not event.is_reply:
-        await event.edit("Reply To An Image Or A Sticker!")
+        await event.edit("Reply to a photo to add to my personal sticker pack.")
         return
     reply_message = await event.get_reply_message()
     sticker_emoji = "🔥"
@@ -47,10 +47,10 @@ async def _(event):
     userid = event.from_id
     packname = f"{user.first_name}'s Vol.{pack}"
     packshortname = f"vol_{pack}_with_{userid}"
-    await event.edit("`Looks Good!\nMind If I Kang?`")
+    await event.edit("`This Sticker Looks Good!`\n`Mind If I Kang?`")
 
     is_a_s = is_it_animated_sticker(reply_message)
-    file_ext_ns_ion = "Sticker.png"
+    file_ext_ns_ion = "Akashi.png"
     file = await borg.download_file(reply_message.media)
     uploaded_sticker = None
     if is_a_s:
@@ -72,7 +72,7 @@ async def _(event):
         now = datetime.datetime.now()
         dt = now + datetime.timedelta(minutes=1)
         if not await stickerset_exists(bot_conv, packshortname):
-            await event.edit("`Brewing a new pack!`")
+            await event.edit("`Brewing a new pack! ヽ(´▽｀)ノ`")
             await silently_send_message(bot_conv, "/cancel")
             if is_a_s:
                 response = await silently_send_message(bot_conv, "/newanimated")
@@ -184,8 +184,8 @@ async def _(event):
                 await silently_send_message(bot_conv, "/done")
 
 
-    await event.edit(f"**Kanged!**\n`Sticker Added` [Here](t.me/addstickers/{packshortname})"
-                     f"` by` {DEFAULTUSER}")
+    await event.edit(f"`Kanged!! This sticker was added` [here](t.me/addstickers/{packshortname})"
+                     f" `by` {DEFAULTUSER}")
 
 
 @borg.on(admin_cmd(pattern="packinfo"))
